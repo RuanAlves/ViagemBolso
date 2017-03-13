@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:minHeight="?attr/listPreferredItemHeight"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/icon_entry"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:padding="0dp"
+        android:src="@drawable/icon_despesa_blue"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/dp_10"/>
+
+    <TextView
+        android:id="@+id/tv_despesa_valor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/icon_entry"
+        android:layout_toRightOf="@id/icon_entry"
+        android:maxLines="1"
+        android:text="R$ 800,00"
+        android:textColor="@color/primary_text_default_material_light"
+        android:textSize="@dimen/abc_text_size_subhead_material" />
+
+    <TextView
+        android:id="@+id/tv_despesa_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="11/03/2017"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/secondary_text_default_material_light"
+        android:textSize="@dimen/sp_10"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/tv_despesa_descricao"
+        android:layout_below="@+id/tv_despesa_descricao"
+        android:layout_marginTop="15dp"
+        android:background="#E8E8E8" />
+
+</RelativeLayout>
