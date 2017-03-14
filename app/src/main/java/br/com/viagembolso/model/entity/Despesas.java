@@ -8,7 +8,7 @@ import br.com.viagembolso.enumerador.TipoMoeda;
 import br.com.viagembolso.interfaces.EntidadePersistivel;
 
 /**
- * Created by Ruan Alves
+ * Created by marco.
  */
 
 public class Despesas implements Serializable, EntidadePersistivel {
@@ -37,11 +37,11 @@ public class Despesas implements Serializable, EntidadePersistivel {
 
     }
 
-    public int getCodigo() {
+    public int getId() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setId(int codigo) {
         this.codigo = codigo;
     }
 
@@ -83,15 +83,5 @@ public class Despesas implements Serializable, EntidadePersistivel {
 
     public void setDataDespesa(String dataDespesa) {
         this.dataDespesa = dataDespesa;
-    }
-
-    @Override
-    public void setId(int id) {
-
-    }
-
-    @Override
-    public int getId() {
-        return 0;
     }
 }

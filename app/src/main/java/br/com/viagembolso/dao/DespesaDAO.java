@@ -76,7 +76,7 @@ public class DespesaDAO extends GenericDAO<Despesas> {
 
             while (cursor.moveToNext()) {
                 Despesas result = new Despesas();
-                result.setCodigo(cursor.getInt(0));
+                result.setId(cursor.getInt(0));
                 result.setDescricao(cursor.getString(1));
                 result.setValor(cursor.getDouble(2));
                 result.setDataDespesa(cursor.getString(4));

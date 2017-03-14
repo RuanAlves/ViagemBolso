@@ -15,7 +15,7 @@ import br.com.viagembolso.model.entity.Despesas;
 import br.com.viagembolso.utilis.Utils;
 
 /**
- * Created by Ruan Alves
+ * Created by marco.
  */
 
 public class DespesaHelper {

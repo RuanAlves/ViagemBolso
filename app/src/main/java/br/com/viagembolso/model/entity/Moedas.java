@@ -5,7 +5,7 @@ import java.io.Serializable;
 import br.com.viagembolso.interfaces.EntidadePersistivel;
 
 /**
- * Created by Ruan Alves
+ * Created by marco.
  */
 public class Moedas implements Serializable, EntidadePersistivel {
 

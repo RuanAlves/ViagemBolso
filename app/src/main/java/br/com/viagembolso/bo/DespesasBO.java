@@ -114,4 +114,10 @@ public class DespesasBO {
     }
 
 
+    public void deletar(Despesas despesa) {
+        mDao = new DespesaDAO(mContext);
+        mDao.deletar(despesa);
+        mDao.fecharConexao();
+        mDao = null;
+    }
 }
