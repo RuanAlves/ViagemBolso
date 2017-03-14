@@ -4,15 +4,12 @@ import android.content.Context;
 
 import java.sql.SQLException;
 
-import br.com.viagembolso.dao.DespesaDAO;
 import br.com.viagembolso.dao.MoedaDAO;
-import br.com.viagembolso.model.entity.Despesas;
 import br.com.viagembolso.model.entity.Moedas;
 
 /**
  * Created by Ruan Alves
  */
-
 public class MoedaBo {
 
     private MoedaDAO mDao;
@@ -39,6 +36,11 @@ public class MoedaBo {
         mDao.updateMoeda(moeda,sigla);
         mDao.fecharConexao();
         mDao = null;
+    }
+
+    public boolean verificarMoeda(){
+        mDao = new MoedaDAO(mContext);
+        return mDao.verificarMoeda();
     }
 
 }

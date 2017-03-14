@@ -53,9 +53,9 @@ public class DespesasAdapter extends RecyclerView.Adapter<DespesasAdapter.MyView
         Despesas despesa = mLista.get(position);
 
         String simbolo = "";
-        if(despesa.getMoeda().equals(TipoMoeda.EURO)){
+        if(despesa.getMoeda().equals(TipoMoeda.EUR)){
             simbolo = "€";
-        } else if(despesa.getMoeda().equals(TipoMoeda.DOLAR)){
+        } else if(despesa.getMoeda().equals(TipoMoeda.USD)){
             simbolo = "$";
         } else {
             simbolo = "R$";

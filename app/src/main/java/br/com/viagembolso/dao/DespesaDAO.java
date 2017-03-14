@@ -91,12 +91,12 @@ public class DespesaDAO extends GenericDAO<Despesas> {
                     result.setTipoCategoriaDespesa(TipoCategoriaDespesa.OUTROS);
                 }
 
-                if(cursor.getString(5).equalsIgnoreCase(TipoMoeda.REAL.toString())) {
-                    result.setMoeda(TipoMoeda.REAL);
-                } else if(cursor.getString(5).equalsIgnoreCase(TipoMoeda.EURO.toString())) {
-                    result.setMoeda(TipoMoeda.EURO);
-                } else if(cursor.getString(5).equalsIgnoreCase(TipoMoeda.DOLAR.toString())) {
-                    result.setMoeda(TipoMoeda.DOLAR);
+                if(cursor.getString(5).equalsIgnoreCase(TipoMoeda.BRL.toString())) {
+                    result.setMoeda(TipoMoeda.BRL);
+                } else if(cursor.getString(5).equalsIgnoreCase(TipoMoeda.EUR.toString())) {
+                    result.setMoeda(TipoMoeda.EUR);
+                } else if(cursor.getString(5).equalsIgnoreCase(TipoMoeda.USD.toString())) {
+                    result.setMoeda(TipoMoeda.USD);
                 }
 
                 resultados.add(result);
@@ -109,7 +109,7 @@ public class DespesaDAO extends GenericDAO<Despesas> {
         return resultados;
     }
 
-    public List<Despesas> buscarResumoDespesa() throws SQLException {
+    public List<Despesas> buscarDespesaGroupCategoria() throws SQLException {
 
         String sql = "SELECT SUM([VALOR]),[CATEGORIA] FROM " + NOME_TABELA + " GROUP BY [CATEGORIA]";
         Cursor cursor = null;
@@ -131,6 +131,39 @@ public class DespesaDAO extends GenericDAO<Despesas> {
                     result.setTipoCategoriaDespesa(TipoCategoriaDespesa.TRANSPORTE);
                 } else {
                     result.setTipoCategoriaDespesa(TipoCategoriaDespesa.OUTROS);
+                }
+
+                resultados.add(result);
+            }
+
+        } finally {
+            cursor.close();
+        }
+
+        return resultados;
+    }
+
+    public List<Despesas> buscarDespesasGroupMoeda() throws SQLException {
+
+        String sql = "SELECT SUM([VALOR]), [MOEDA] FROM " + NOME_TABELA + " GROUP BY [CATEGORIA]";
+        Cursor cursor = null;
+        List<Despesas> resultados = new ArrayList<>();
+
+        try {
+
+            cursor = dataBase.rawQuery(sql, null);
+
+            while (cursor.moveToNext()) {
+
+                Despesas result = new Despesas();
+                result.setValor(cursor.getDouble(0));
+
+                if(cursor.getString(1).equalsIgnoreCase(TipoMoeda.BRL.toString())) {
+                    result.setMoeda(TipoMoeda.BRL);
+                } else if(cursor.getString(1).equalsIgnoreCase(TipoMoeda.EUR.toString())) {
+                    result.setMoeda(TipoMoeda.EUR);
+                } else if(cursor.getString(1).equalsIgnoreCase(TipoMoeda.USD.toString())) {
+                    result.setMoeda(TipoMoeda.USD);
                 }
 
                 resultados.add(result);

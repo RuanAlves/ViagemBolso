@@ -1,21 +1,14 @@
 package br.com.viagembolso.helper;
 
-import android.content.Context;
-import android.os.Vibrator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.viagembolso.R;
-import br.com.viagembolso.activity.ManterDespesaActivity;
 import br.com.viagembolso.activity.ResumoDespesasActivity;
 import br.com.viagembolso.enumerador.TipoCategoriaDespesa;
-import br.com.viagembolso.enumerador.TipoMoeda;
 import br.com.viagembolso.model.entity.Despesas;
 import br.com.viagembolso.utilis.Utils;
 
@@ -30,6 +23,9 @@ public class ResumoDespesaHelper {
     private TextView mValorHospedagem;
     private TextView mValorOutras;
     private String moeda = "";
+    private LinearLayout mLinearLayout;
+    private TextView mEmpty;
+    private TextView mValorTotal;
 
     public ResumoDespesaHelper(ResumoDespesasActivity activity, String moeda) {
 
@@ -44,6 +40,9 @@ public class ResumoDespesaHelper {
         mValorTransporte  = (TextView) activity.findViewById(R.id.resumo_text_transporte);
         mValorHospedagem  = (TextView) activity.findViewById(R.id.resumo_text_hospedagem);
         mValorOutras      = (TextView) activity.findViewById(R.id.resumo_text_outros);
+        mLinearLayout     = (LinearLayout) activity.findViewById(R.id.linear_despesa);
+        mEmpty            = (TextView) activity.findViewById(R.id.resumo_empty);
+        mValorTotal       = (TextView) activity.findViewById(R.id.resumo_text_total);
 
     }
 
@@ -78,6 +77,26 @@ public class ResumoDespesaHelper {
         mValorHospedagem.setText(simbolo + " " + String.valueOf(Utils.converterDoubleDoisDecimais(vlHospedagem)));
         mValorOutras.setText(simbolo + " " + String.valueOf(Utils.converterDoubleDoisDecimais(vlOutros)));
 
+    }
+
+    public void showResumo(){
+        mEmpty.setVisibility(View.GONE);
+        mLinearLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void showNoResumo(){
+        mEmpty.setVisibility(View.VISIBLE);
+        mLinearLayout.setVisibility(View.GONE);
+    }
+
+    public void setarValorTotal(double valor){
+
+        String simbolo = "";
+        if (moeda.equals("Euro"))simbolo = "€";
+        else if (moeda.equalsIgnoreCase("Dolar")) simbolo = "$";
+        else simbolo = "R$";
+
+        mValorTotal.setText(simbolo + " " + String.valueOf(Utils.converterDoubleDoisDecimais(valor)));
     }
 
 }

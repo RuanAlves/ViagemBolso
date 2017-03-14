@@ -65,11 +65,11 @@ public class DespesaHelper {
 
         String moedaAux = mMoeda.getSelectedItem().toString();
         if(moedaAux.equalsIgnoreCase("Real")){
-            mDepesas.setMoeda(TipoMoeda.REAL);
+            mDepesas.setMoeda(TipoMoeda.BRL);
         } else if(moedaAux.equalsIgnoreCase("Euro")){
-            mDepesas.setMoeda(TipoMoeda.EURO);
+            mDepesas.setMoeda(TipoMoeda.EUR);
         } else if(moedaAux.equalsIgnoreCase("Dolar")){
-            mDepesas.setMoeda(TipoMoeda.DOLAR);
+            mDepesas.setMoeda(TipoMoeda.USD);
         }
 
         return mDepesas;
@@ -91,11 +91,11 @@ public class DespesaHelper {
             mCategoria.setSelection(3);
         }
 
-        if(depesas.getMoeda().equals(TipoMoeda.REAL)){
+        if(depesas.getMoeda().equals(TipoMoeda.BRL)){
             mMoeda.setSelection(0);
-        } else if(depesas.getMoeda().equals(TipoMoeda.EURO)){
+        } else if(depesas.getMoeda().equals(TipoMoeda.EUR)){
             mMoeda.setSelection(1);
-        } else if(depesas.getMoeda().equals(TipoMoeda.DOLAR)){
+        } else if(depesas.getMoeda().equals(TipoMoeda.USD)){
             mMoeda.setSelection(2);
         }
 

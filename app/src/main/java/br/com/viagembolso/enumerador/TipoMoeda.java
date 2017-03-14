@@ -6,9 +6,9 @@ package br.com.viagembolso.enumerador;
  */
 public enum TipoMoeda {
 
-    REAL("Real"),
-    EURO("Euro"),
-    DOLAR("Dolar");
+    BRL("Real"),
+    EUR("Euro"),
+    USD("Dolar");
 
     private String descricao;
 

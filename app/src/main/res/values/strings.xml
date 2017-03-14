@@ -12,9 +12,11 @@
     <string name="inserir">Inserir</string>
     <string name="etiqueta_info_01">Resumo Despesas</string>
     <string name="etiqueta_info_02">Gráfico Despesas</string>
+    <string name="etiqueta_info_03">Resummo Total</string>
     <string name="menu_cotacao">Atualizar Cotação</string>
     <string name="etiqueta_valores">R$ 800</string>
     <string name="aguarde_progress">Aguarde...</string>
+    <string name="informacao_empty">Não há dados a serem mostrados</string>
 
     <string-array name="despesas">
         <item>Alimentação</item>

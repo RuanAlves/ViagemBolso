@@ -1,5 +1,6 @@
 package br.com.viagembolso.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -31,6 +32,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(MoedaDAO.SCRIPT_CRIACAO_TABELA);
         db.execSQL(DespesaDAO.SCRIPT_CRIACAO_TABELA);
+
+        insertReal(db);
+
         Log.i("DATABASE", "CRIANDO TABELA DO BANDO DE DADOS");
 
     }
@@ -43,4 +47,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
+    public void insertReal(SQLiteDatabase db) {
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("SIGLA", "BRL");
+            contentValues.put("DESCRICAO", "Real");
+            contentValues.put("VALOR", 1.0);
+            db.insert("MOEDAS", null, contentValues);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.w("MOEDA", "Erro ao inserir Real! " + e.getMessage());
+        }
+    }
+
 }

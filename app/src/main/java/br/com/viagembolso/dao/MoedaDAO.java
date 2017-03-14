@@ -4,9 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import br.com.viagembolso.enumerador.TipoCategoriaDespesa;
+import br.com.viagembolso.model.entity.Despesas;
 import br.com.viagembolso.model.entity.Moedas;
 
 /**
@@ -70,22 +75,29 @@ public class MoedaDAO extends GenericDAO<Moedas> {
             cursor.close();
         }
 
-        if(m.getSigla() == null || m.getSigla().isEmpty()) return null;
+        if(m == null || m.getSigla() == null || m.getSigla().isEmpty()) return null;
         else return  m;
 
     }
 
-    public void inserir (Moedas m) throws SQLException {
+    public boolean verificarMoeda() throws android.database.SQLException {
 
+        String sql = "SELECT * FROM " + NOME_TABELA + " WHERE SIGLA <> 'BRL'";
+        Cursor cursor = null;
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("SIGLA", m.getSigla());
-        contentValues.put("VALOR", m.getValor());
-        contentValues.put("DESCRICAO", m.getDescricao());
+        try {
 
-         dataBase.insert(NOME_TABELA, null, contentValues);
+            cursor = dataBase.rawQuery(sql, null);
 
+            if (cursor.moveToNext()) {
+                return true;
+            }
 
+        } finally {
+            cursor.close();
+        }
+
+        return false;
     }
 
     public void updateMoeda(Moedas moeda, String sigla) throws SQLException {
@@ -98,6 +110,17 @@ public class MoedaDAO extends GenericDAO<Moedas> {
 
         String[] args = {sigla};
         dataBase.update(NOME_TABELA, contentValues, "SIGLA = ?", args);
+    }
+
+    public void insertReal() {
+
+        Moedas moeda = new Moedas();
+        moeda.setSigla("BRL");
+        moeda.setDescricao("Real");
+        moeda.setValor(1);
+
+        salvar(moeda);
+
     }
 
     @Override

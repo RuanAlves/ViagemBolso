@@ -46,15 +46,13 @@ public class WebCotacao extends WebConnection {
             JSONObject object = new JSONObject(responseBody);
             JSONObject valores = object.getJSONObject("valores");
             JSONArray names = valores.names();
+            String status = "FAILED";
 
             for(int i =0; i < names.length(); i++){
 
                 JSONObject moeda = valores.getJSONObject(names.getString(i));
-                Log.i("MOEDA", "SIGLA: " + names.getString(i));
-                Log.i("MOEDA", "VALOR: " + moeda.getDouble("valor"));
-                Log.i("MOEDA", "VALOR: " + moeda.getString("nome"));
-
                 Moedas m = moedaBo.getMoeda(names.getString(i));
+
                 if(m == null) {
                     m = new Moedas();
                     m.setSigla(names.getString(i));
@@ -68,9 +66,11 @@ public class WebCotacao extends WebConnection {
                     moedaBo.updateMoeda(m, m.getSigla());
                 }
 
-                EventBus.getDefault().post(m);
+                status = "SUCESS";
 
             }
+
+            EventBus.getDefault().post(status);
 
         } catch (IOException e) {
             EventBus.getDefault().post(e);

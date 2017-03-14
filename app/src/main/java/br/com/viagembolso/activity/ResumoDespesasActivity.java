@@ -22,6 +22,8 @@ import java.util.List;
 
 import br.com.viagembolso.R;
 import br.com.viagembolso.bo.DespesasBO;
+import br.com.viagembolso.bo.MoedaBo;
+import br.com.viagembolso.enumerador.TipoMoeda;
 import br.com.viagembolso.helper.ResumoDespesaHelper;
 import br.com.viagembolso.model.entity.Despesas;
 import br.com.viagembolso.model.entity.Moedas;
@@ -32,6 +34,7 @@ public class ResumoDespesasActivity extends BaseActivity {
     private Toolbar mToolbar;
     private Spinner mMoedaFilter;
     private DespesasBO mDespesaBo;
+    private String mSiglaSelecionada = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,9 @@ public class ResumoDespesasActivity extends BaseActivity {
         mMoedaFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String status = parent.getItemAtPosition(position).toString();
-                showResumo(status);
+                mSiglaSelecionada = parent.getItemAtPosition(position).toString();
+                TipoMoeda tipoMoeda = getTipoMoeda(mSiglaSelecionada);
+                showResumo(tipoMoeda);
             }
 
             @Override
@@ -62,6 +66,18 @@ public class ResumoDespesasActivity extends BaseActivity {
 
             }
         });
+
+    }
+
+    private TipoMoeda getTipoMoeda(String moeda){
+
+        if(moeda.equalsIgnoreCase("Dolar")){
+            return TipoMoeda.USD;
+        } else if(moeda.equalsIgnoreCase("Euro")){
+            return TipoMoeda.EUR;
+        } else {
+            return TipoMoeda.BRL;
+        }
 
     }
 
@@ -73,15 +89,32 @@ public class ResumoDespesasActivity extends BaseActivity {
 
     }
 
-    public void showResumo(String moeda){
+    public void showResumo(TipoMoeda tipoMoeda){
 
         try {
 
-            List<Despesas> despesas = new ArrayList<>();
-            despesas = mDespesaBo.buscarResumoDespesas();
+            MoedaBo moedaBo = new MoedaBo(this);
+            ResumoDespesaHelper helper = new ResumoDespesaHelper(this, tipoMoeda.getDescricao());
 
-            ResumoDespesaHelper helper = new ResumoDespesaHelper(this,moeda);
-            helper.setmResumoDespesas(despesas);
+            if(moedaBo.verificarMoeda()) {
+
+                List<Despesas> despesasMoeda = new ArrayList<>();
+                despesasMoeda = mDespesaBo.buscarDespesasGroupMoeda();
+
+                Moedas moedaSelecionada = moedaBo.getMoeda(tipoMoeda.name());
+                double total = mDespesaBo.calcularValorTotal(despesasMoeda, moedaSelecionada);
+
+                List<Despesas> despesasCategoria = new ArrayList<>();
+                despesasCategoria = mDespesaBo.retornarListDespesaCategoria(despesasMoeda, moedaSelecionada);
+
+                helper.showResumo();
+                helper.setarValorTotal(total);
+                helper.setmResumoDespesas(despesasCategoria);
+
+            } else {
+                helper.showNoResumo();
+                showBasic();
+            }
 
         }catch (SQLException e){
             showAlert("Ocorreu um erro ao apresentar informações...");
@@ -127,7 +160,6 @@ public class ResumoDespesasActivity extends BaseActivity {
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        showAlert("Usuário cancelou a operação!");
                     }
                 })
                 .show();
@@ -138,6 +170,9 @@ public class ResumoDespesasActivity extends BaseActivity {
         showDialogWithMessage(getString(R.string.aguarde_progress));
         WebCotacao webConnection = new WebCotacao(this);
         webConnection.call();
+
+        TipoMoeda tipoMoeda = getTipoMoeda(mSiglaSelecionada);
+        showResumo(tipoMoeda);
 
     }
 
@@ -160,9 +195,13 @@ public class ResumoDespesasActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(Moedas m) {
+    public void onMessageEvent(String status) {
         dismissDialog();
-        showAlert("Cotação de moedas atualizada com sucesso!");
+        if(status.equalsIgnoreCase("SUCESS")) {
+            showAlert("Cotação de moedas atualizada com sucesso!");
+        } else {
+            showAlert("OPS! Cotação nçao disponível no momento...");
+        }
     }
 
 }
