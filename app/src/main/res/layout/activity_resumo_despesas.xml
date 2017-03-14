@@ -76,7 +76,7 @@
                     android:layout_height="@dimen/dp_40"
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/espacio_norma_2"
-                    app:srcCompat="@drawable/icon_despesa_roxo" />
+                    app:srcCompat="@mipmap/ic_wallet_travel_grey600_24dp" />
 
                 <TextView
                     android:id="@+id/resumo_text_total"

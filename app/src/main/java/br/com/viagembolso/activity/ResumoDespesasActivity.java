@@ -105,7 +105,7 @@ public class ResumoDespesasActivity extends BaseActivity {
                 double total = mDespesaBo.calcularValorTotal(despesasMoeda, moedaSelecionada);
 
                 List<Despesas> despesasCategoria = new ArrayList<>();
-                despesasCategoria = mDespesaBo.retornarListDespesaCategoria(despesasMoeda, moedaSelecionada);
+                despesasCategoria = mDespesaBo.retornarListDespesaCategoria(moedaSelecionada);
 
                 helper.showResumo();
                 helper.setarValorTotal(total);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.com.viagembolso.dao.DespesaDAO;
 import br.com.viagembolso.dao.MoedaDAO;
+import br.com.viagembolso.enumerador.TipoCategoriaDespesa;
 import br.com.viagembolso.enumerador.TipoMoeda;
 import br.com.viagembolso.model.entity.Despesas;
 import br.com.viagembolso.model.entity.Moedas;
@@ -73,43 +74,47 @@ public class DespesasBO {
 
     }
 
-    public List<Despesas> retornarListDespesaCategoria(List<Despesas> listDespesaMoeda , Moedas moeda) throws SQLException{
+    public List<Despesas> retornarListDespesaCategoria(Moedas moeda) throws SQLException{
 
-        Double total_real  = 0.0;
-        Double total_dolar = 0.0;
-        Double total_euro  = 0.0;
+        Double total_alimentacao  = 0.0;
+        Double total_hospedagem = 0.0;
+        Double total_transporte  = 0.0;
+        Double total_outros  = 0.0;
         MoedaDAO moedaDao  = new MoedaDAO(mContext);
-        List<Despesas> listDespesaCategoria = mDao.buscarDespesaGroupCategoria();
+        List<Despesas> listDespesaCategoria = mDao.buscarDespesaGroupCategoriaMoeda();
 
-        for (Despesas desp : listDespesaMoeda){
+        for (Despesas desp : listDespesaCategoria){
 
             Moedas r = moedaDao.getMoeda(desp.getMoeda().name());
             Double real = desp.getValor() * r.getValor();
             Double total = (real/moeda.getValor());
 
-            if(desp.getMoeda().equals(TipoMoeda.BRL)){
-                total_real += total;
-            } else if(desp.getMoeda().equals(TipoMoeda.EUR)){
-                total_euro += total;
-            } else if(desp.getMoeda().equals(TipoMoeda.USD)){
-                total_dolar += total;
+            if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.ALIMENTACAO)){
+                total_alimentacao += total;
+            } else if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.HOSPEDAGEM)){
+                total_hospedagem += total;
+            } else if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.TRANSPORTE)){
+                total_transporte += total;
+            } else if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.OUTROS)){
+                total_outros += total;
             }
 
         }
 
-        for (Despesas desp : listDespesaCategoria){
-
-            if(desp.getMoeda().equals(TipoMoeda.BRL)){
-                desp.setValor(total_real);
-            } else if(desp.getMoeda().equals(TipoMoeda.EUR)){
-                desp.setValor(total_euro);
-            } else if(desp.getMoeda().equals(TipoMoeda.USD)){
-                desp.setValor(total_dolar);
+        List<Despesas> listResult = mDao.buscarDespesaGroupCategoria();
+        for (Despesas desp : listResult){
+            if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.ALIMENTACAO)){
+                desp.setValor(total_alimentacao);
+            } else if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.HOSPEDAGEM)){
+                desp.setValor(total_hospedagem);
+            } else if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.TRANSPORTE)){
+                desp.setValor(total_transporte);
+            } else if(desp.getTipoCategoriaDespesa().equals(TipoCategoriaDespesa.OUTROS)){
+                desp.setValor(total_outros);
             }
-
         }
 
-        return listDespesaCategoria;
+        return listResult;
 
     }
 
