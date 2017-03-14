@@ -87,9 +87,8 @@ public class ManterDespesaActivity extends BaseActivity implements DatePickerDia
 
                 mDespesas = helper.getDepesas();
 
-                if (mDespesas.getCodigo() != 0){
+                if (mDespesas.getId() != 0){
                     despesasBO.editar(mDespesas);
-                    Log.i("MOSTRA_CODIGO", String.valueOf(mDespesas.getCodigo()));
                 } else {
                     despesasBO.salvar(mDespesas);
                 }

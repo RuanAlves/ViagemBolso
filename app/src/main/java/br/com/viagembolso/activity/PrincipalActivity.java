@@ -1,13 +1,15 @@
 package br.com.viagembolso.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -22,6 +24,10 @@ import br.com.viagembolso.bo.DespesasBO;
 import br.com.viagembolso.interfaces.ClickRecyclerView;
 import br.com.viagembolso.model.entity.Despesas;
 
+/**
+ * Created by marco on 13/03/17.
+ */
+
 public class PrincipalActivity extends BaseActivity implements ClickRecyclerView {
 
     private Toolbar mToolbar;
@@ -30,6 +36,7 @@ public class PrincipalActivity extends BaseActivity implements ClickRecyclerView
     private List<Despesas> mListDespesas;
     private RecyclerView mRecyclerView;
     private DespesasBO despesasBO;
+    private ItemTouchHelper itemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,49 @@ public class PrincipalActivity extends BaseActivity implements ClickRecyclerView
         setmToolbar();
         setFloafButtomMenu();
         setmRecyclerView();
+        itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
+
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition();
+
+            if (direction == ItemTouchHelper.LEFT) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(PrincipalActivity.this);
+                builder.setMessage("Tem Certeza que deseja Excluir?");
+                builder.setPositiveButton("EXCLUIR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAdapter.notifyItemRemoved(position);
+                        Despesas despesa = (Despesas) mAdapter.getItemAtPosition(position);
+
+                        despesasBO.deletar(despesa);
+                        mListDespesas.remove(position);
+
+                        return;
+                    }
+                }).setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mAdapter.notifyItemRemoved(position + 1);
+                        mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
+                        return;
+                    }
+                }).show();
+            }
+        }
+    };
+
+
 
     @Override
     protected void onPostResume() {
@@ -156,6 +205,8 @@ public class PrincipalActivity extends BaseActivity implements ClickRecyclerView
 
     }
 
+
+
     @Override
     public void onCustomClick(Object object) {
         Despesas despesas = (Despesas) object;
@@ -163,6 +214,5 @@ public class PrincipalActivity extends BaseActivity implements ClickRecyclerView
         intentParaDespesa.putExtra("despesas", despesas);
         startActivity(intentParaDespesa);
 
-      //  Toast.makeText(this,"Clique Funcionando", Toast.LENGTH_SHORT).show();
     }
 }
