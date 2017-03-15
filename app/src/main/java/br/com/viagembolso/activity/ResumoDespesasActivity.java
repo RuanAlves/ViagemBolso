@@ -29,6 +29,9 @@ import br.com.viagembolso.model.entity.Despesas;
 import br.com.viagembolso.model.entity.Moedas;
 import br.com.viagembolso.web.WebCotacao;
 
+/**
+ * @author Ruan Alves
+ */
 public class ResumoDespesasActivity extends BaseActivity {
 
     private Toolbar mToolbar;
