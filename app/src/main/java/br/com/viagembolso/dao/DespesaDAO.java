@@ -188,7 +188,7 @@ public class DespesaDAO extends GenericDAO<Despesas> {
 
     public List<Despesas> buscarDespesasGroupMoeda() throws SQLException {
 
-        String sql = "SELECT SUM([VALOR]), [MOEDA] FROM " + NOME_TABELA + " GROUP BY [CATEGORIA]";
+        String sql = "SELECT SUM([VALOR]), [MOEDA] FROM " + NOME_TABELA + " GROUP BY [MOEDA]";
         Cursor cursor = null;
         List<Despesas> resultados = new ArrayList<>();
 
