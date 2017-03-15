@@ -43,11 +43,6 @@ public class DespesasBO {
         return mDao.buscarDespesas();
     }
 
-    /*public List<Despesas> buscarResumoDespesas() throws SQLException{
-        mDao = new DespesaDAO(mContext);
-        return mDao.buscarResumoDespesa();
-    }*/
-
     public List<Despesas> buscarDespesaGroupCategoria() throws SQLException{
         mDao = new DespesaDAO(mContext);
         List<Despesas> result = mDao.buscarDespesaGroupCategoria();
