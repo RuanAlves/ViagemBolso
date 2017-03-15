@@ -3,7 +3,7 @@
     package="br.com.viagembolso">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -15,15 +15,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTheme">
-        <activity android:name=".activity.PrincipalActivity">
+        <activity android:name=".activity.LaunchScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ManterDespesaActivity" />
-        <activity android:name=".activity.ResumoDespesasActivity"></activity>
+        <activity
+            android:name=".activity.PrincipalActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".activity.ManterDespesaActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".activity.ResumoDespesasActivity"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>
