@@ -25,7 +25,7 @@ import br.com.viagembolso.interfaces.ClickRecyclerView;
 import br.com.viagembolso.model.entity.Despesas;
 
 /**
- * Created by marco on 13/03/17.
+ * Created by Ruan Alves
  */
 
 public class PrincipalActivity extends BaseActivity implements ClickRecyclerView {
