@@ -2,7 +2,7 @@ package br.com.viagembolso.enumerador;
 
 
 /**
- * Created by Ruan Alves
+ * Created by marco.
  */
 public enum TipoMoeda {
 

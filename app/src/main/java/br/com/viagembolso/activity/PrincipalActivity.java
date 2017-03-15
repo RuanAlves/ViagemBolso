@@ -25,7 +25,7 @@ import br.com.viagembolso.interfaces.ClickRecyclerView;
 import br.com.viagembolso.model.entity.Despesas;
 
 /**
- * Created by Ruan Alves
+ * Created by marco.
  */
 
 public class PrincipalActivity extends BaseActivity implements ClickRecyclerView {
@@ -75,7 +75,7 @@ public class PrincipalActivity extends BaseActivity implements ClickRecyclerView
 
                         despesasBO.deletar(despesa);
                         mListDespesas.remove(position);
-
+                        setListDados();
                         return;
                     }
                 }).setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {

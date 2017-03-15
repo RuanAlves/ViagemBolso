@@ -1,7 +1,7 @@
 package br.com.viagembolso.interfaces;
 
 /**
- * Created by Ruan Alves
+ * Created by marco.
  */
 public interface EntidadePersistivel {
 

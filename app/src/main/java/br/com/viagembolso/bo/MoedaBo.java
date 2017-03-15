@@ -8,7 +8,7 @@ import br.com.viagembolso.dao.MoedaDAO;
 import br.com.viagembolso.model.entity.Moedas;
 
 /**
- * Created by Ruan Alves
+ * Created by marco.
  */
 public class MoedaBo {
 
