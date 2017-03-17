@@ -29,8 +29,7 @@
             android:name=".activity.ManterDespesaActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".activity.ResumoDespesasActivity"
-            android:configChanges="orientation|screenSize" />
+            android:name=".activity.ResumoDespesasActivity"/>
     </application>
 
 </manifest>

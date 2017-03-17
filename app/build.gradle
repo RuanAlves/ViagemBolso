@@ -25,6 +25,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //View e compatibility
+    //Web connection
+    //EventBus
+    //Material Dialog
     compile 'com.android.support:support-v4:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:appcompat-v7:25.1.1'
@@ -33,12 +36,10 @@ dependencies {
     compile 'com.android.support:palette-v7:25.1.1'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.txusballesteros:FitChart:1.0'
-    //Web connection
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    //EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
-    //Material Dialog
     compile 'com.afollestad.material-dialogs:core:0.9.3.0'
-    testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    testCompile 'junit:junit:4.12'
 }
