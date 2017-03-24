@@ -2,7 +2,7 @@
 
     <string name="app_name">Viagem no Bolso</string>
     <string name="button_salvar">Salvar</string>
-    <string name="title_activity_detail">Nuevo gasto</string>
+    <string name="title_activity_detail">Novo gasto</string>
     <string name="valor">Valor</string>
     <string name="descricao">Descrição</string>
     <string name="tipo_depesa">Tipo de Despesa</string>
@@ -12,7 +12,7 @@
     <string name="inserir">Inserir</string>
     <string name="etiqueta_info_01">Resumo Despesas</string>
     <string name="etiqueta_info_02">Gráfico Despesas</string>
-    <string name="etiqueta_info_03">Resummo Total</string>
+    <string name="etiqueta_info_03">Resumo Total</string>
     <string name="menu_cotacao">Atualizar Cotação</string>
     <string name="etiqueta_valores">R$ 800</string>
     <string name="aguarde_progress">Aguarde...</string>
