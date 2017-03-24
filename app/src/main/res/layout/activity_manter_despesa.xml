@@ -109,7 +109,7 @@
                 android:id="@+id/boton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/universal_margin"
+                android:layout_marginTop="@dimen/universal_margin"
                 android:background="@color/colorAccent"
                 android:onClick="clickButtom"
                 android:text="@string/button_salvar"

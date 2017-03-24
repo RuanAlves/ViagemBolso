@@ -89,7 +89,7 @@ public class MoedaDAO extends GenericDAO<Moedas> {
 
             cursor = dataBase.rawQuery(sql, null);
 
-            if (cursor.moveToNext()) {
+            if(cursor.getCount() > 0) {
                 return true;
             }
 
